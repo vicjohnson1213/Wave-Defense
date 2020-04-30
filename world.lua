@@ -8,8 +8,8 @@ local world = love.physics.newWorld(0, 0)
 
 world:setCallbacks(
     beginCollision,
-    endCollision, 
-    nil, 
+    endCollision,
+    nil,
     nil
 )
 

@@ -1,17 +1,20 @@
 local input = require('input')
 local settings = require('settings')
+local utils = require('utils')
 
 local debugger = {}
 
 local printControllerData = function()
     local winWidth, winHeight = love.window.getMode()
-    local leftX, leftY = input.getStickDirection('left')
-    local rightX, rightY = input.getStickDirection('right')
+    local leftX, leftY, leftAngle = input.getAxis('leftJoy')
+    local rightX, rightY, rightAngle = input.getAxis('rightJoy')
 
-    love.graphics.print('leftX ' .. leftX, 5, winHeight - 80, 0, 1, 1)
-    love.graphics.print('leftY ' .. leftY, 5, winHeight - 60, 0, 1, 1)
-    love.graphics.print('rightX ' .. rightX, 5, winHeight - 40, 0, 1, 1)
-    love.graphics.print('rightY ' .. rightY, 5, winHeight - 20, 0, 1, 1)
+    love.graphics.print('leftA ' .. utils.round(math.deg(leftAngle), 3), 5, winHeight - 120, 0, 1, 1)
+    love.graphics.print('leftX ' .. utils.round(leftX, 3), 5, winHeight - 100, 0, 1, 1)
+    love.graphics.print('leftY ' .. utils.round(leftY, 3), 5, winHeight - 80, 0, 1, 1)
+    love.graphics.print('RightA ' .. utils.round(math.deg(rightAngle), 3), 5, winHeight - 60, 0, 1, 1)
+    love.graphics.print('rightX ' .. utils.round(rightX, 3), 5, winHeight - 40, 0, 1, 1)
+    love.graphics.print('rightY ' .. utils.round(rightY, 3), 5, winHeight - 20, 0, 1, 1)
 end
 
 local printFrameRate = function()

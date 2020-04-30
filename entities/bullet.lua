@@ -1,27 +1,21 @@
 local world = require('world')
-local input = require('input')
 local settings = require('settings')
+local utils = require('utils')
 
 return function(x, y, directionX, directionY)
     local entity = {}
     entity.body = love.physics.newBody(world, x, y, 'dynamic')
-    entity.body:setLinearVelocity(directionX, directionY)
-    entity.shape = love.physics.newCircleShape(0, 0, 2)
+    entity.shape = love.physics.newCircleShape(0, 0, settings.weapons.rifle.bulletRadius)
     entity.fixture = love.physics.newFixture(entity.body, entity.shape)
     entity.fixture:setUserData(entity)
-    entity.fixture:setRestitution(1)
 
     entity.type = 'bullet'
 
-    local magnitude = math.sqrt(directionX^2 + directionY^2)
-    local normalizedDirection = {
-        x = directionX / magnitude,
-        y = directionY / magnitude
-    }
+    local normX, normY = utils.normalize(directionX, directionY)
 
     entity.body:setLinearVelocity(
-        normalizedDirection.x * settings.weapon.bulletVelocity,
-        normalizedDirection.y * settings.weapon.bulletVelocity
+        normX * settings.weapons.rifle.bulletVelocity,
+        normY * settings.weapons.rifle.bulletVelocity
     )
 
     entity.draw = function(self)

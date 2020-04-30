@@ -1,5 +1,6 @@
 local settings = require('settings')
 local state = require('state')
+local utils = require('utils')
 
 local input = {}
 
@@ -16,18 +17,30 @@ local checkDeadzone = function(val)
     return val
 end
 
-input.getStickDirection = function(stick)
+local getAngle = function(x, y)
+    local angle = math.atan2(y, x)
+    if angle >= 0 then return angle end
+    return (math.pi) + (math.pi - math.abs(angle))
+end
+
+input.getAxis = function(axis)
     local joysticks = love.joystick.getJoysticks()
     local hasJoySicks = table.getn(joysticks)
 
     if not hasJoySicks then return 0, 0 end
 
-    local leftJoyX, leftJoyY, _, rightJoyX, rightJoyY = joysticks[1]:getAxes()
+    local leftJoyX, leftJoyY, leftTrigger, rightJoyX, rightJoyY, rightTrigger = joysticks[1]:getAxes()
 
-    if stick == 'left' then
-        return checkDeadzone(leftJoyX), checkDeadzone(leftJoyY)
-    elseif stick == 'right' then
-        return checkDeadzone(rightJoyX), checkDeadzone(rightJoyY)
+    if axis == 'leftJoy' then
+        local angle = getAngle(checkDeadzone(leftJoyX), checkDeadzone(leftJoyY))
+        return checkDeadzone(leftJoyX), checkDeadzone(leftJoyY), angle
+    elseif axis == 'rightJoy' then
+        local angle = getAngle(checkDeadzone(rightJoyX), checkDeadzone(rightJoyY))
+        return checkDeadzone(rightJoyX), checkDeadzone(rightJoyY), angle
+    elseif axis == 'leftTrigger' then
+        return leftTrigger
+    elseif axis == 'rightTrigger' then
+        return rightTrigger
     end
 end
 
