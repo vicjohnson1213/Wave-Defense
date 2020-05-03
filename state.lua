@@ -1,3 +1,4 @@
 return {
-    paused = false
+    paused = false,
+    activePage = 'MainMenu'
 }
