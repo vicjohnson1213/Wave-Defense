@@ -6,7 +6,8 @@ return {
     },
 
     controller = {
-        Deadzone = 0.075
+        PlayDeadzone = 0.1,
+        MenuDeadzone = 0.5
     },
 
     player = {
@@ -20,7 +21,7 @@ return {
             style = 'auto',
             bulletRadius = 2,
             bulletVelocity = 500,
-            rateOfFire = 35,
+            rateOfFire = 25,
             length = 30,
             width = 4
         }
@@ -32,8 +33,11 @@ return {
     },
 
     interface = {
+        menu = {
+            buttonSwitchRate = 3
+        },
         button = {
-            hoverOffset = { x = 0, y = 0 },
+            hoverOffset = { x = 30, y = 0 },
             width = 300,
             padding = { x = 20, y = 10 },
             borderRadius = 10,
@@ -42,11 +46,11 @@ return {
                 bgColor = { 1, 1, 1, 1 },
                 fgColor = { 1, 0, 0, 1 },
                 hover = {
-                    bgColor = { 0.9, 0.9, 0.9, 1 },
+                    bgColor = { 0.0, 0.8, 0.8, 1 },
                     fgColor = { 1, 0, 0, 1 }
                 },
                 pressed = {
-                    bgColor = { 0.8, 0.8, 0.8, 1 },
+                    bgColor = { 0.6, 0.6, 0.6, 1 },
                     fgColor = { 1, 0, 0, 1 }
                 }
             }

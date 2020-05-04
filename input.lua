@@ -1,5 +1,6 @@
 local settings = require('settings')
 local state = require('state')
+local constants = require('constants')
 local utils = require('utils')
 
 local input = {}
@@ -10,7 +11,9 @@ local keyMap = {
 }
 
 local checkDeadzone = function(val)
-    if math.abs(val) < settings.controller.Deadzone then
+    local deadzone = settings.controller.MenuDeadzone
+    if state.activePage == constants.Page.Game then deadzone = settings.controller.PlayDeadzone end
+    if math.abs(val) < deadzone then
         return 0
     end
 
@@ -42,6 +45,15 @@ input.getAxis = function(axis)
     elseif axis == 'rightTrigger' then
         return rightTrigger
     end
+end
+
+input.getButton = function(button)
+    local joysticks = love.joystick.getJoysticks()
+    local hasJoySicks = table.getn(joysticks)
+
+    if not hasJoySicks then return false end
+
+    return joysticks[1]:isGamepadDown(button)
 end
 
 input.keyPressed = function(key)

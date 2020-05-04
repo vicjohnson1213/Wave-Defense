@@ -12,7 +12,7 @@ local printControllerData = function()
     love.graphics.print('leftA ' .. utils.round(math.deg(leftAngle), 3), 5, winHeight - 120, 0, 1, 1)
     love.graphics.print('leftX ' .. utils.round(leftX, 3), 5, winHeight - 100, 0, 1, 1)
     love.graphics.print('leftY ' .. utils.round(leftY, 3), 5, winHeight - 80, 0, 1, 1)
-    love.graphics.print('RightA ' .. utils.round(math.deg(rightAngle), 3), 5, winHeight - 60, 0, 1, 1)
+    love.graphics.print('rightA ' .. utils.round(math.deg(rightAngle), 3), 5, winHeight - 60, 0, 1, 1)
     love.graphics.print('rightX ' .. utils.round(rightX, 3), 5, winHeight - 40, 0, 1, 1)
     love.graphics.print('rightY ' .. utils.round(rightY, 3), 5, winHeight - 20, 0, 1, 1)
 end

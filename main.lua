@@ -1,15 +1,19 @@
 local world = require('world')
 local state = require('state')
+local constants = require('constants')
 local input = require('input')
-local entities = require('entities')
+local game = require('game')
 local debugger = require('debugger')
 local mainMenu = require('menus.main-menu')
 
+love.load = function()
+end
+
 love.draw = function()
-    if state.activePage == 'MainMenu' then
+    if state.activePage == constants.Page.MainMenu then
         if mainMenu.draw then mainMenu:draw() end
-    elseif state.activePage == 'Game' then
-        if entities.player.draw then entities.player:draw() end
+    elseif state.activePage == constants.Page.Game then
+        if game.draw then game:draw() end
     end
 
     debugger.debug()
@@ -20,21 +24,13 @@ love.keypressed = function(key)
 end
 
 love.update = function(dt)
-    if state.activePage == 'MainManu' then
+    if state.activePage == constants.Page.MainMenu then
         if mainMenu.update then mainMenu:update(dt) end
-    elseif state.activePage == 'Game' then
-        if entities.player.update then entities.player:update(dt) end
+    elseif state.activePage == constants.Page.Game then
+        if game.update then game:update(dt) end
     end
 
     world:update(dt)
-end
-
-love.mousepressed = function(x, y, button)
-    if mainMenu.onMousePressed then mainMenu:onMousePressed(x, y, button) end
-end
-
-love.mousereleased = function(x, y, button)
-    if mainMenu.onMouseReleased then mainMenu:onMouseReleased(x, y, button) end
 end
 
 love.keypressed = function(key)
